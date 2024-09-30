@@ -38,6 +38,8 @@ class GitHubUserTracker(cmd.Cmd):
             print("Output:")
             for event in data[:5]:
                 self.eventHandler(event)
+        elif response.status == 404:
+            print(f"Username: {username} not Found")
         else:
             print(f"Error - response code: {response.status}")
 
@@ -54,7 +56,7 @@ class GitHubUserTracker(cmd.Cmd):
             case "WatchEvent":
                 print(f"Starred {event['repo']['name']}")
             case _:
-                print("Currently not implemented event type")
+                print(f"Currently not implemented event type: {event['type']}")
 
 
 if __name__ == '__main__':
